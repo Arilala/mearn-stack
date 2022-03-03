@@ -1,6 +1,5 @@
 const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500
-  console.log({ statusCode, res: res.statusCode })
   res.status(statusCode)
   res.json({
     message: err.message,
@@ -8,4 +7,14 @@ const errorHandler = (err, req, res, next) => {
   })
 }
 
-module.exports = { errorHandler }
+const notFoundHandler = (req, res, next) => {
+  const message = 'response not found'
+
+  res.status(404).json({
+    message,
+    path: req.baseUrl,
+    method: req.method,
+  })
+}
+
+module.exports = { errorHandler, notFoundHandler }
